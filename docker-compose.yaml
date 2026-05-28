@@ -110,7 +110,7 @@ services:
       - "vmselect-1"
       - "vmselect-2"
     volumes:
-      - ./auth-vm-cluster.yml:/etc/auth.yml
+      - ./config/auth-vm-cluster.yml:/etc/auth.yml
     command:
       - "--auth.config=/etc/auth.yml"
     ports:
