@@ -1,0 +1,64 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  vmagent:
+    image: victoriametrics/vmagent
+    container_name: vmagent
+    command:
+      - "--promscrape.config=/etc/prometheus/prometheus.yml"
+      - "--remoteWrite.url=http://vminsert:8480/insert/0/prometheus"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - vminsert
+
+  vminsert:
+    image: victoriametrics/vminsert
+    container_name: vminsert
+    command:
+      - "--storageNode=vmstorage1:8400"
+      - "--storageNode=vmstorage2:8400"
+    ports:
+      - "8480:8480"
+
+  vmselect:
+    image: victoriametrics/vmselect
+    container_name: vmselect
+    command:
+      - "--storageNode=vmstorage1:8401"
+      - "--storageNode=vmstorage2:8401"
+    ports:
+      - "8481:8481"
+
+  vmstorage1:
+    image: victoriametrics/vmstorage
+    container_name: vmstorage1
+    command:
+      - "--retentionPeriod=7"
+    ports:
+      - "8400:8400"
+      - "8401:8401"
+
+  vmstorage2:
+    image: victoriametrics/vmstorage
+    container_name: vmstorage2
+    command:
+      - "--retentionPeriod=7"
+
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
