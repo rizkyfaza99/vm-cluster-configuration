@@ -154,7 +154,7 @@ services:
   alertmanager:
     image: prom/alertmanager:v0.28.1
     volumes:
-      - ./alertmanager.yml:/config/alertmanager.yml
+      - ./config/alertmanager.yml:/config/alertmanager.yml
     command:
       - "--config.file=/config/alertmanager.yml"
     ports:
