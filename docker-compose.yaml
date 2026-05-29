@@ -32,14 +32,17 @@ services:
       - ./provisioning/datasources/prometheus/cluster.yml:/etc/grafana/provisioning/datasources/cluster.yml
       - ./provisioning/datasources/infinity/cluster.yml:/etc/grafana/provisioning/datasources/infinity-cluster.yml
       - ./provisioning/dashboards/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
-      - ./provisioning/dashboards/json:/var/lib/grafana/dashboards
-
-      # - ./provisioning/dashboards/victoriametrics-cluster.json:/var/lib/grafana/dashboards/victoriametrics-cluster.json
-      # - ./provisioning/dashboards/vmagent.json:/var/lib/grafana/dashboards/vmagent.json
-      # - ./provisioning/dashboards/vmalert.json:/var/lib/grafana/dashboards/vmalert.json
-      # - ./provisioning/dashboards/vmauth.json:/var/lib/grafana/dashboards/vmauth.json
-      # - ./provisioning/dashboards/alert-statistics.json:/var/lib/grafana/dashboards/alert-statistics.json
-      # - ./provisioning/dashboards/metrics-explorer.json:/var/lib/grafana/dashboards/metrics-explorer.json
+      - ./provisioning/dashboards/alert-statistics.json:/var/lib/grafana/dashboards/alert-statistics.json
+      - ./provisioning/dashboards/backupmanager.json:/var/lib/grafana/dashboards/backupmanager.json
+      - ./provisioning/dashboards/clusterbytenant.json:/var/lib/grafana/dashboards/clusterbytenant.json
+      - ./provisioning/dashboards/metrics-explorer.json:/var/lib/grafana/dashboards/metrics-explorer.json
+      - ./provisioning/dashboards/operator.json:/var/lib/grafana/dashboards/operator.json
+      - ./provisioning/dashboards/query-stats.json:/var/lib/grafana/dashboards/query-stats.json
+      - ./provisioning/dashboards/victoriametrics-cluster.json:/var/lib/grafana/dashboards/victoriametrics-cluster.json
+      - ./provisioning/dashboards/victoriametrics.json:/var/lib/grafana/dashboards/victoriametrics.json
+      - ./provisioning/dashboards/vmagent.json:/var/lib/grafana/dashboards/vmagent.json
+      - ./provisioning/dashboards/vmalert.json:/var/lib/grafana/dashboards/vmalert.json
+      - ./provisioning/dashboards/vmauth.json:/var/lib/grafana/dashboards/vmauth.json
 
   # vmstorage shards. Each shard receives 1/N of all metrics sent to vminserts,
   # where N is number of vmstorages (2 in this case).
